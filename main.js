@@ -2,6 +2,8 @@ import "./style.css";
 
 import * as THREE from "three";
 
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 //1. scene
 const scene = new THREE.Scene();
 
@@ -33,18 +35,23 @@ const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
 
+//lighting
 const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(20, 20, 20);
+pointLight.position.set(10, 10, 10);
 
 // scene.add(pointLight);
-//use one line of scene.add to add multiple lights
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
+//use one line of scene.add to add multiple lights
 scene.add(pointLight, ambientLight);
 
-//axes display
+//helpers
+const lightHelper = new THREE.PointLightHelper(pointLight);
+const gridHelper = new THREE.GridHelper(100, 25);
 const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
+scene.add(lightHelper, gridHelper, axesHelper);
+
+const controls = new OrbitControls(camera, renderer.domElement);
 
 function animate() {
   requestAnimationFrame(animate);
@@ -52,6 +59,9 @@ function animate() {
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.01;
   torus.rotation.z += 1;
+
+  //the dom element listens for user events and the new camera position is saved and changes are reflected in the UI
+  controls.update();
 
   renderer.render(scene, camera);
 }
