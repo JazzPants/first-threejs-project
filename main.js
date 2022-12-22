@@ -53,6 +53,7 @@ scene.add(lightHelper, gridHelper, axesHelper);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
+//starry background
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
   const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
@@ -68,6 +69,12 @@ function addStar() {
 
 Array(200).fill().forEach(addStar);
 
+//scene background image
+//can place a callback function into the load function to put a loading bar/image while static images are loading
+const spaceTexture = new THREE.TextureLoader().load("images/bkg1_bot.png");
+scene.background = spaceTexture;
+
+//render torus
 function animate() {
   requestAnimationFrame(animate);
 
