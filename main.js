@@ -74,6 +74,35 @@ Array(200).fill().forEach(addStar);
 const spaceTexture = new THREE.TextureLoader().load("images/bkg1_bot.png");
 scene.background = spaceTexture;
 
+//Cube
+const leightonTexture = new THREE.TextureLoader().load(
+  "images/leighton-avatar.png"
+);
+
+const leighton = new THREE.Mesh(
+  new THREE.BoxGeometry(3, 3, 3),
+  new THREE.MeshBasicMaterial({ map: leightonTexture })
+);
+
+scene.add(leighton);
+
+//Jupiter
+const jupiterTexture = new THREE.TextureLoader().load("images/Jupiter_Map.jpg");
+const normalTexture = new THREE.TextureLoader().load(
+  "images/Jupiter_Normal.jpg"
+);
+
+const jupiter = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({
+    map: jupiterTexture,
+    normalMap: normalTexture,
+  })
+);
+
+jupiter.position.set(5, 5, 5);
+scene.add(jupiter);
+
 //render torus
 function animate() {
   requestAnimationFrame(animate);
